@@ -104,13 +104,9 @@ snake = {
   draw: function() {
     for (i = 0; i < snake.positions.length; i++) {
 	if(i==snake.positions.length-1)
-	{
 	      snake.drawSection(snake.positions[i].split(','), "blue");
-	}
 	else
-	{
 	      snake.drawSection(snake.positions[i].split(','), snake.color);
-	} 
    }    
   },
   // draws each section of snake 
@@ -169,13 +165,10 @@ food = {
     food.x = (Math.ceil(Math.random() * 10) * snake.size * 4) - snake.size / 2;
     food.y = (Math.ceil(Math.random() * 10) * snake.size * 3) - snake.size / 2;
   },
-  
   draw: function() {
     game.drawBox(food.x, food.y, food.size, food.color);
   }
-  
 };
-
 inverseDirection = {
   'up':'down',
   'left':'right',
@@ -184,13 +177,12 @@ inverseDirection = {
 };
 
 keys = {
-  up: [38],
-  down: [40],
-  left: [37],
-  right: [39],
+  up: [87],
+  down: [83],
+  left: [65],
+  right: [68],
   start_game: [13, 32]
 };
-
 Object.prototype.getKey = function(value){
   for(var key in this){
     if(this[key] instanceof Array && this[key].indexOf(value) >= 0){
@@ -202,13 +194,13 @@ Object.prototype.getKey = function(value){
 
 addEventListener("keydown", function (e) {
     lastKey = keys.getKey(e.keyCode);
-    if (['up', 'down', 'left', 'right'].indexOf(lastKey) >= 0
-        && lastKey != inverseDirection[snake.direction]) {
+    if (['up', 'down', 'left', 'right'].indexOf(lastKey) >=0  && lastKey != inverseDirection[snake.direction])
       snake.direction = lastKey;
-    } else if (['start_game'].indexOf(lastKey) >= 0 && game.over) {
+    else if (['start_game'].indexOf(lastKey) >= 0 && game.over)
       game.start();
-    }
+    console.log(e.keyCode);
 }, false);
+
 /* Game Loop*/
 var requestAnimationFrame =  window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
