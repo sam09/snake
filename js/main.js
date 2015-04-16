@@ -58,9 +58,8 @@ game = {
   
 };
 /* snake object */
-snake = {
-  
-  size: 10,
+snake = { 
+  size: canvas.height/32,
   x: null,
   y: null,
   color: '#1E90FF',
