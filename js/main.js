@@ -2,6 +2,7 @@
 /* The game object which controls the game*/
 var canvas = document.getElementById("container");
 var context = canvas.getContext("2d");
+console.log(canvas.height+" "+canvas.width);
 var score_canvas = document.getElementById("score");
 var score_context = score_canvas.getContext("2d");
 var started = false;
@@ -48,8 +49,7 @@ game = {
     score_context.font = '20px Impact, sans-serif';
     score_context.textAlign = 'center';
     score_context.clearRect(0,0,  score_canvas.width, score_canvas.height) 
-    score_context.fillText("Score: "+game.score, score_canvas.width/2, score_canvas.height*.9);
- 
+    score_context.fillText("Score: "+game.score, score_canvas.width/2, score_canvas.height*.9); 
 },
 /* A function which resets the canvas*/
   resetCanvas: function() {
@@ -75,6 +75,7 @@ snake = {
     for (i = snake.x + (4 * snake.size); i >= snake.x; i-=snake.size) {
       snake.positions.push(i + ',' + snake.y); 
     }
+    console.log(snake.size);
   },
   //the move function which moves depending on the snake's present direction*/
   move: function() {
@@ -161,8 +162,9 @@ food = {
   
   set: function() {
     food.size = snake.size;
-    food.x = (Math.ceil(Math.random() * 10) * snake.size * 4) - snake.size / 2;
-    food.y = (Math.ceil(Math.random() * 10) * snake.size * 3) - snake.size / 2;
+    food.x = Math.floor(Math.random() * (401));
+    food.y = Math.floor(Math.random() * (401));
+    console.log(food.x+" "+food.y);
   },
   draw: function() {
     game.drawBox(food.x, food.y, food.size, food.color);
