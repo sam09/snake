@@ -1,3 +1,1 @@
-#A HTML version of the classic snake game"
-
-
+#A HTML version of the classic game snake
