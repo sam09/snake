@@ -1,11 +1,12 @@
-/*Javascript*/
-/* The game object which controls the game*/
 var canvas = document.getElementById("container");
 var context = canvas.getContext("2d");
+
 console.log(canvas.height+" "+canvas.width);
+
 var score_canvas = document.getElementById("score");
 var score_context = score_canvas.getContext("2d");
 var started = false;
+
 //the game object which stores certain values and defines 
 game = {
   
@@ -13,6 +14,7 @@ game = {
   fps: 40, //speed
   over: false, //game over
   message: null, //message
+
 /* start game function*/
   start: function() {
     game.over = false;
@@ -23,16 +25,17 @@ game = {
     snake.init();
     food.set();
   },
+
 /* stop game function*/  
   stop: function() {
     game.over = true;
-    if(started)
-    {
-    game.message = "Gameover";
-    alert(game.message);
+    if(started) {
+      game.message = "Gameover";
+      alert(game.message);
     }
 },
- /* a function which draws a square of length size centered at x, y*/
+
+/* a function which draws a square of length size centered at x, y*/
   drawBox: function(x, y, size, color) {
     context.fillStyle = color;
     context.beginPath();
@@ -43,7 +46,8 @@ game = {
     context.closePath();
     context.fill();
   },
-  /* The draw score function deals with rendering score*/
+
+/* The draw score function deals with rendering score*/
   drawScore: function() {
     score_context.fillStyle = 'blue';
     score_context.font = '20px Impact, sans-serif';
@@ -51,33 +55,39 @@ game = {
     score_context.clearRect(0,0,  score_canvas.width, score_canvas.height) 
     score_context.fillText("Score: "+game.score, score_canvas.width/2, score_canvas.height*.9); 
 },
+
 /* A function which resets the canvas*/
   resetCanvas: function() {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
   
 };
+
 /* snake object */
 snake = { 
+
   size: canvas.height/32,
   x: null,
   y: null,
   color: '#1E90FF',
   direction: 'left',
   positions: [],
-  /*the snake object constructor which creates a snake of given size*/
+
+/*the snake object constructor which creates a snake of given size*/
   init: function() {
     snake.positions = [];
     snake.direction = 'left';
     snake.x = canvas.width / 2 + snake.size / 2;
     snake.y = canvas.height /2 + snake.size / 2;
-    /*inserting 4 values into coordinates into the snake*/
+
+/*inserting 4 values into coordinates into the snake*/
     for (i = snake.x + (4 * snake.size); i >= snake.x; i-=snake.size) {
       snake.positions.push(i + ',' + snake.y); 
     }
     console.log(snake.size);
   },
-  //the move function which moves depending on the snake's present direction*/
+
+//the move function which moves depending on the snake's present direction*/
   move: function() {
 // move depending on the cirrent direction 
     switch(snake.direction) {
@@ -94,13 +104,14 @@ snake = {
         snake.x+=snake.size;
         break;
     }
+
 // check for collision
     snake.checkCollision();
-// check for collision
     snake.grow();
     snake.positions.push(snake.x + ',' + snake.y);
   },
-  //draw the snake
+
+//draw the snake
   draw: function() {
     for (i = 0; i < snake.positions.length; i++) {
 	if(i==snake.positions.length-1)
@@ -109,7 +120,8 @@ snake = {
 	      snake.drawSection(snake.positions[i].split(','), snake.color);
    }    
   },
-  // draws each section of snake 
+
+// draws each section of snake 
   drawSection: function(section, color) {
     context.fillStyle = color;
     context.beginPath();
@@ -162,8 +174,10 @@ food = {
   
   set: function() {
     food.size = snake.size;
-    food.x = Math.floor(Math.random() * (401));
-    food.y = Math.floor(Math.random() * (401));
+    //food.x = Math.floor(Math.random() * (401));
+    //food.y = Math.floor(Math.random() * (401));
+    food.x = Math.ceil(Math.random() * 10)*food.size*3;
+    food.y = Math.ceil(Math.random() * 10)*food.size*3;
     console.log(food.x+" "+food.y);
   },
   draw: function() {
